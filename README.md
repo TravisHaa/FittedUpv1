@@ -1,50 +1,121 @@
-# Welcome to your Expo app 👋
+# FittedUp - AI-Powered Clothing Listing App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+FittedUp is a mobile application that streamlines the process of listing clothing items across multiple e-commerce platforms by leveraging AI to analyze images and autofill listing details.
 
-## Get started
+## Overview
 
-1. Install dependencies
+The app allows users to:
 
-   ```bash
-   npm install
-   ```
+- Upload two images of a clothing item (front and back)
+- Generate a description and categorize details (size, brand, color) using AI
+- Post listings to multiple platforms (eBay, Depop, Facebook Marketplace)
 
-2. Start the app
+## Tech Stack
 
-   ```bash
-    npx expo start
-   ```
+### Frontend
 
-In the output, you'll find options to open the app in a
+- React Native with Expo
+- NativeWind (Tailwind CSS for React Native)
+- TypeScript
+- Expo Router for navigation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Backend
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Node.js with Express
+- OpenAI ChatGPT API (for image analysis in production)
 
-## Get a fresh project
+## Project Structure
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+fittedup/
+├── app/                     # Frontend app screens and navigation
+│   ├── (tabs)/              # Tab-based navigation screens
+│   │   ├── _layout.tsx      # Tab navigation setup
+│   │   ├── index.tsx        # Marketplace screen
+│   │   ├── sell.tsx         # Sell screen (core feature)
+│   │   └── closet.tsx       # Closet screen
+├── components/              # Reusable UI components
+├── utils/                   # Utility functions
+│   └── api.ts               # API client for backend
+├── backend/                 # Backend server
+│   ├── routes/              # API route handlers
+│   ├── utils/               # Utility functions
+│   └── server.js            # Main server file
+└── assets/                  # Static assets
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Features
 
-## Learn more
+### Sell Screen (Core Feature)
 
-To learn more about developing your project with Expo, look at the following resources:
+- Image upload (front and back)
+- AI-powered listing generation
+- Multiple platform posting
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Marketplace Screen (Static UI for MVP)
 
-## Join the community
+- Mock feed of clothing listings
+- Filtering by category
+- Item detail cards
 
-Join our community of developers creating universal apps.
+### Closet Screen (Static UI for MVP)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- List of user's posted items
+- Platform indicators
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm or yarn
+- Expo CLI
+
+### Frontend Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Start the Expo development server:
+   ```
+   npx expo start
+   ```
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```
+   cd backend
+   ```
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Create a `.env` file with required environment variables (see backend/README.md)
+4. Start the server:
+   ```
+   npm start
+   ```
+
+## MVP Scope
+
+The current MVP focuses on:
+
+- Sell screen with image upload and mock AI listing generation
+- Static UI for Marketplace and Closet screens
+- Backend API structure (with mock responses for now)
+
+## Future Development
+
+- Google Lens-powered visual search
+- Barcode scanning for quick listing
+- Aesthetic-based filtering
+- Outfit recommendations
+- Mathematical pricing algorithms based on brand/condition
+- Dynamic web scraping for competitive pricing
+
+## License
+
+This project is proprietary and not licensed for redistribution.
