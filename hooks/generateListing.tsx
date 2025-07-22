@@ -45,19 +45,29 @@ export const useGenerateListing = () => {
       // Get the local IP address
       const API_URL = "http://localhost:3000/api/route";
 
+      ///creating formData
+      const formData = new FormData();
+      formData.append("frontImage", {
+        uri: frontImageUri,
+        name: "front.jpg",
+        type: "image/jpeg",
+      } as any);
+      formData.append("backImage", {
+        uri: backImageUri,
+        name: "back.jpg",
+        type: "image/jpeg",
+      } as any);
+      
+
       console.log("Making API request to:", API_URL);
 
       // Make API call
       const response = await fetch(API_URL, {
         method: "POST",
+        body: formData,
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          frontbase64: frontBase64,
-          backbase64: backBase64,
-        }),
       });
 
       if (!response.ok) {

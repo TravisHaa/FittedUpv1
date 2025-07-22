@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Platform } from "react-native";
+import { ListingDetails } from "types/types";
 import {
   StyleSheet,
   Text,
@@ -16,18 +17,9 @@ import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { useGenerateListing } from "../../hooks/generateListing";
+import { useRouter } from "expo-router";
 
 // Type for listing details returned by the API
-interface ListingDetails {
-  title: string;
-  description: string;
-  material: string;
-  category: string;
-  brand: string;
-  condition: string;
-  aesthetic: string;
-  price: number;
-}
 
 // Function to convert image URI to base64
 const imageToBase64 = async (uri: string): Promise<string> => {
@@ -47,6 +39,9 @@ const Sell = () => {
   const [frontImage, setFrontImage] = useState<string | null>(null);
   const [backImage, setBackImage] = useState<string | null>(null);
 
+  const [listingDetails, setListingDetails] = useState<ListingDetails | null>(
+    null
+  );
   // State for listing details (will be populated by AI)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -56,6 +51,7 @@ const Sell = () => {
   const [condition, setCondition] = useState("");
   const [aesthetic, setAesthetic] = useState("");
   const [price, setPrice] = useState(0);
+  const router = useRouter();
 
   // Use the generate listing hook
   const { generateListing, isGenerating, error } = useGenerateListing();
@@ -147,18 +143,22 @@ const Sell = () => {
 
     try {
       console.log("generating...");
-      const listingDetails = await generateListing(frontImage, backImage);
-
+      const generated = await generateListing(frontImage, backImage);
+      setListingDetails(generated);
       //parse reutnred JSON from GPT
 
       // Update state with AI response
-      setTitle(listingDetails.title);
-      setDescription(listingDetails.description);
-      setCategory(listingDetails.category);
-      setBrand(listingDetails.brand);
-      setCondition(listingDetails.condition);
-      setAesthetic(listingDetails.aesthetic);
-      setPrice(listingDetails.price);
+      if (listingDetails !== null) {
+        setTitle(listingDetails.title);
+        setDescription(listingDetails.description);
+        setCategory(listingDetails.category);
+        setBrand(listingDetails.brand);
+        setCondition(listingDetails.condition);
+        setAesthetic(listingDetails.aesthetic);
+        setPrice(listingDetails.price);
+      } else {
+        console.error("Listing generated is null");
+      }
 
       // Update completion state
       setIsGenerationComplete(true);
@@ -168,18 +168,12 @@ const Sell = () => {
     }
   };
 
-  // Function to handle posting to different platforms
-  const postToPlatform = (platform: string) => {
+  // Placeholder for opening Depop, eBay, or Facebook apps
+  const openDepopApp = () => {
     Alert.alert(
-      "Post to " + platform,
-      `This would post your listing to ${platform} with the generated details.`,
-      [{ text: "OK" }]
+      "Feature Coming Soon",
+      "This functionality will be available in a future update."
     );
-
-    // In a real implementation:
-    // 1. For eBay: Use the eBay API to create a listing
-    // 2. For Depop: Redirect to Depop app with pre-filled data
-    // 3. For Facebook Marketplace: Redirect to Marketplace with pre-filled data
   };
 
   return (
@@ -343,21 +337,21 @@ const Sell = () => {
 
             <View className="flex-col justify-between mb-4">
               <TouchableOpacity
-                onPress={() => postToPlatform("eBay")}
+                onPress={openDepopApp}
                 className="w-full bg-blue-500 py-3 rounded-lg items-center"
               >
                 <Text className="text-white font-semibold">eBay</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => postToPlatform("Depop")}
+                onPress={() => router.push("/platformWebView")}
                 className="w-full bg-pink-500 py-3 rounded-lg items-center "
               >
                 <Text className="text-white font-semibold">Depop</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => postToPlatform("Facebook")}
+                onPress={openDepopApp}
                 className="w-full bg-blue-600 py-3 rounded-lg items-center "
               >
                 <Text className="text-white font-semibold">Facebook</Text>
