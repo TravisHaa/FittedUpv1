@@ -1,29 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 
 const _Layout = () => {
   return (
     // gets rid ofspecific screen header
     <Tabs
       screenOptions={{
+        tabBarShowLabel: false,
         tabBarItemStyle: {
           width: "100%",
           height: "100%",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: 5,
+          marginTop: 0,
         },
         tabBarStyle: {
-          backgroundColor: "#202c3d",
-          borderRadius: 0,
-          marginTop: 0,
-          height: 80,
+          position: "absolute",
+          backgroundColor: "rgba(3, 0, 20, 0.35)",
+          borderTopWidth: 0,
+          height: 84,
           marginBottom: 0,
+          elevation: 0,
         },
-        tabBarActiveTintColor: "#FFFFFF",
-        tabBarInactiveTintColor: "#888888",
+        tabBarBackground: () => (
+          <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFill} />
+        ),
+        tabBarActiveTintColor: "#e6fffb",
+        tabBarInactiveTintColor: "#93c5fd",
       }}
     >
       <Tabs.Screen
@@ -38,7 +44,7 @@ const _Layout = () => {
         options={{
           title: "Marketplace",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
@@ -48,7 +54,7 @@ const _Layout = () => {
         options={{
           title: "Search",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="search-outline" size={size} color={color} />
           ),
         }}
@@ -58,7 +64,7 @@ const _Layout = () => {
         options={{
           title: "Sell",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
         }}
@@ -68,7 +74,7 @@ const _Layout = () => {
         options={{
           title: "Closet",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),
         }}

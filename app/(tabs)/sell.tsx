@@ -13,6 +13,8 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native";
+import GradientBackground from "../../components/GradientBackground";
+import GlassView from "../../components/GlassView";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
@@ -205,45 +207,48 @@ const Sell = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 px-4">
+    <GradientBackground>
+      <SafeAreaView className="flex-1">
+        <View className="flex-1 px-4">
         <View className="py-4">
-          <Text className="text-2xl font-bold">Sell Your Item</Text>
-          <Text className="text-gray-500 mt-1">
-            Upload clothing images to generate a listing
-          </Text>
+          <Text className="text-2xl font-bold text-white">Sell Your Item</Text>
+          <Text className="text-white/70 mt-1">Upload clothing images to generate a listing</Text>
         </View>
 
         {/* Image Upload Section */}
         <View className="flex-row justify-between mb-6">
           <TouchableOpacity
             onPress={() => pickImage(setFrontImage)}
-            className="w-[48%] h-48 rounded-lg bg-gray-100 justify-center items-center overflow-hidden"
-            style={{ borderWidth: 1, borderColor: "#e0e0e0" }}
+            className="w-[48%] h-48 rounded-lg justify-center items-center overflow-hidden"
+            style={{ borderWidth: 0 }}
           >
-            {frontImage ? (
-              <Image source={{ uri: frontImage }} className="w-full h-full" />
-            ) : (
-              <View className="items-center">
-                <Ionicons name="camera-outline" size={40} color="#666" />
-                <Text className="mt-2 text-gray-500">Front Image</Text>
-              </View>
-            )}
+            <GlassView style={{ width: '100%', height: '100%' }}>
+              {frontImage ? (
+                <Image source={{ uri: frontImage }} className="w-full h-full" />
+              ) : (
+                <View className="items-center">
+                  <Ionicons name="camera-outline" size={40} color="#e5e7eb" />
+                  <Text className="mt-2 text-white/80">Front Image</Text>
+                </View>
+              )}
+            </GlassView>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => pickImage(setBackImage)}
-            className="w-[48%] h-48 rounded-lg bg-gray-100 justify-center items-center overflow-hidden"
-            style={{ borderWidth: 1, borderColor: "#e0e0e0" }}
+            className="w-[48%] h-48 rounded-lg justify-center items-center overflow-hidden"
+            style={{ borderWidth: 0 }}
           >
-            {backImage ? (
-              <Image source={{ uri: backImage }} className="w-full h-full" />
-            ) : (
-              <View className="items-center">
-                <Ionicons name="camera-outline" size={40} color="#666" />
-                <Text className="mt-2 text-gray-500">Back Image</Text>
-              </View>
-            )}
+            <GlassView style={{ width: '100%', height: '100%' }}>
+              {backImage ? (
+                <Image source={{ uri: backImage }} className="w-full h-full" />
+              ) : (
+                <View className="items-center">
+                  <Ionicons name="camera-outline" size={40} color="#e5e7eb" />
+                  <Text className="mt-2 text-white/80">Back Image</Text>
+                </View>
+              )}
+            </GlassView>
           </TouchableOpacity>
         </View>
 
@@ -254,8 +259,8 @@ const Sell = () => {
             disabled={isGenerating || !frontImage || !backImage}
             className={`py-3 rounded-lg items-center justify-center mb-6 ${
               isGenerating || !frontImage || !backImage
-                ? "bg-gray-300"
-                : "bg-black"
+                ? "bg-white/30"
+                : "bg-black/80"
             }`}
           >
             {isGenerating ? (
@@ -269,99 +274,107 @@ const Sell = () => {
         {/* Listing Details Section */}
         {isGenerationComplete && (
           <ScrollView className="mb-6">
-            <Text className="text-lg font-semibold mb-4">Listing Details</Text>
+            <Text className="text-lg font-semibold mb-4 text-white">Listing Details</Text>
 
             <View className="mb-4">
-              <Text className="text-gray-600 mb-1">Title:</Text>
+              <Text className="text-white/80 mb-1">Title:</Text>
               <TextInput
                 value={title}
                 onChangeText={setTitle}
-                className="border border-gray-300 rounded-lg p-3 text-base"
+                className="border border-white/20 rounded-lg p-3 text-base text-white"
                 placeholder="Item title"
+                placeholderTextColor="#e5e7eb"
               />
             </View>
 
             <View className="mb-4">
-              <Text className="text-gray-600 mb-1">Description:</Text>
-              <ScrollView className="border border-gray-300 rounded-lg">
+              <Text className="text-white/80 mb-1">Description:</Text>
+              <ScrollView className="border border-white/20 rounded-lg">
                 <TextInput
                   value={description}
                   onChangeText={setDescription}
                   multiline
                   numberOfLines={4}
-                  className="p-3 text-base"
+                  className="p-3 text-base text-white"
                   placeholder="Item description"
                   style={{ height: 200 }}
+                  placeholderTextColor="#e5e7eb"
                 />
               </ScrollView>
             </View>
 
             <View className="flex-row justify-between mb-4">
               <View className="w-[30%]">
-                <Text className="text-gray-600 mb-1">Category</Text>
+                <Text className="text-white/80 mb-1">Category</Text>
                 <TextInput
                   value={category}
                   onChangeText={setCategory}
-                  className="border border-gray-300 rounded-lg p-3 text-base"
+                  className="border border-white/20 rounded-lg p-3 text-base text-white"
                   placeholder="Category"
+                  placeholderTextColor="#e5e7eb"
                 />
               </View>
 
               <View className="w-[30%]">
-                <Text className="text-gray-600 mb-1">Brand</Text>
+                <Text className="text-white/80 mb-1">Brand</Text>
                 <TextInput
                   value={brand}
                   onChangeText={setBrand}
-                  className="border border-gray-300 rounded-lg p-3 text-base"
+                  className="border border-white/20 rounded-lg p-3 text-base text-white"
                   placeholder="Brand"
+                  placeholderTextColor="#e5e7eb"
                 />
               </View>
 
               <View className="w-[30%]">
-                <Text className="text-gray-600 mb-1">Material</Text>
+                <Text className="text-white/80 mb-1">Material</Text>
                 <TextInput
                   value={material}
                   onChangeText={setMaterial}
-                  className="border border-gray-300 rounded-lg p-3 text-base"
+                  className="border border-white/20 rounded-lg p-3 text-base text-white"
                   placeholder="Material"
+                  placeholderTextColor="#e5e7eb"
                 />
               </View>
             </View>
 
             <View className="flex-row justify-between mb-4">
               <View className="w-[30%]">
-                <Text className="text-gray-600 mb-1">Condition</Text>
+                <Text className="text-white/80 mb-1">Condition</Text>
                 <TextInput
                   value={condition}
                   onChangeText={setCondition}
-                  className="border border-gray-300 rounded-lg p-3 text-base"
+                  className="border border-white/20 rounded-lg p-3 text-base text-white"
                   placeholder="Condition"
+                  placeholderTextColor="#e5e7eb"
                 />
               </View>
 
               <View className="w-[30%]">
-                <Text className="text-gray-600 mb-1">Aesthetic</Text>
+                <Text className="text-white/80 mb-1">Aesthetic</Text>
                 <TextInput
                   value={aesthetic}
                   onChangeText={setAesthetic}
-                  className="border border-gray-300 rounded-lg p-3 text-base"
+                  className="border border-white/20 rounded-lg p-3 text-base text-white"
                   placeholder="Aesthetic"
+                  placeholderTextColor="#e5e7eb"
                 />
               </View>
 
               <View className="w-[30%]">
-                <Text className="text-gray-600 mb-1">Price</Text>
-                <TextInput
+                <Text className="text-white/80 mb-1">Price</Text>
+              <TextInput
                   value={price.toString()}
-                  onChangeText={(text) => setPrice(Number(text) || 0)}
+                onChangeText={(text: string) => setPrice(Number(text) || 0)}
                   keyboardType="numeric"
-                  className="border border-gray-300 rounded-lg p-3 text-base"
+                  className="border border-white/20 rounded-lg p-3 text-base text-white"
                   placeholder="Price"
+                  placeholderTextColor="#e5e7eb"
                 />
               </View>
             </View>
 
-            <Text className="text-lg font-semibold mb-4">Post To</Text>
+            <Text className="text-lg font-semibold mb-4 text-white">Post To</Text>
 
             <View className="flex-col justify-between mb-4">
               <TouchableOpacity
@@ -401,9 +414,11 @@ const Sell = () => {
                     );
                   }
                 }}
-                className="w-full bg-blue-500 py-3 rounded-lg items-center"
+                className="w-full py-3 rounded-lg items-center"
               >
-                <Text className="text-white font-semibold">eBay</Text>
+                <GlassView>
+                  <Text className="text-white font-semibold">eBay</Text>
+                </GlassView>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -439,9 +454,11 @@ const Sell = () => {
                     );
                   }
                 }}
-                className="w-full bg-pink-500 py-3 rounded-lg items-center "
+                className="w-full py-3 rounded-lg items-center"
               >
-                <Text className="text-white font-semibold">Depop</Text>
+                <GlassView>
+                  <Text className="text-white font-semibold">Depop</Text>
+                </GlassView>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -481,15 +498,18 @@ const Sell = () => {
                     );
                   }
                 }}
-                className="w-full bg-blue-600 py-3 rounded-lg items-center "
+                className="w-full py-3 rounded-lg items-center"
               >
-                <Text className="text-white font-semibold">Facebook</Text>
+                <GlassView>
+                  <Text className="text-white font-semibold">Facebook</Text>
+                </GlassView>
               </TouchableOpacity>
             </View>
           </ScrollView>
         )}
       </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </GradientBackground>
   );
 };
 

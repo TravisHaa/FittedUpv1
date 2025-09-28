@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import GlassView from "./GlassView";
 
 interface Props {
   placeholder: string;
@@ -10,26 +10,34 @@ interface Props {
 
 const SearchBar = ({ placeholder, onPress }: Props) => {
   return (
-    <View
-      style={styles.container}
-      className="flex-row items-center bg-white rounded-full px-5 py-4 border-black border-b-10"
-    >
-      <Ionicons name="search-outline" />
-      <TextInput
-        onPress={onPress}
-        placeholder={placeholder}
-        value=""
-        onChangeText={() => {}}
-        className="flex-1 ml-3 text-black"
-        placeholderTextColor="#000000"
-      />
-    </View>
+    <GlassView style={styles.wrapper}>
+      <View style={styles.row}>
+        <Ionicons name="search-outline" size={20} color="#e5e7eb" />
+        <TextInput
+          onPress={onPress}
+          placeholder={placeholder}
+          value=""
+          onChangeText={() => {}}
+          style={styles.input}
+          placeholderTextColor="#e5e7eb"
+        />
+      </View>
+    </GlassView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    opacity: 0.6, // This sets the opacity to 30%
+  wrapper: {
+    borderRadius: 9999,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    flex: 1,
+    marginLeft: 12,
+    color: '#fff',
   },
 });
 

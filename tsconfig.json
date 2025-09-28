@@ -4,6 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "jsx": "react-jsx",
+    "lib": ["ES2019", "DOM"],
     "paths": {
       "@/*": [ "app/*"],
       "@constants/*": ["constants/*"]

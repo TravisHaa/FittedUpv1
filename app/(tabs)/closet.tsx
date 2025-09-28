@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native";
+import GradientBackground from "../../components/GradientBackground";
+import GlassView from "../../components/GlassView";
 import React from "react";
 
 // Closet screen - displays user's listed items (static UI for MVP)
@@ -14,35 +16,39 @@ const Closet = () => {
     ];
 
     return (
-        <SafeAreaView className="flex-1 bg-white">
-            <View className="px-4 py-4">
-                <Text className="text-2xl font-bold">My Closet</Text>
-                <Text className="text-gray-500 mt-1">Items you've listed for sale</Text>
-            </View>
+        <GradientBackground>
+            <SafeAreaView className="flex-1">
+                <View className="px-4 py-4">
+                    <Text className="text-2xl font-bold text-white">My Closet</Text>
+                    <Text className="text-white/70 mt-1">Items you've listed for sale</Text>
+                </View>
 
-            <ScrollView className="flex-1 px-4">
-                {mockListedItems.map((item) => (
-                    <View key={item.id} className="flex-row items-center p-3 bg-gray-50 rounded-lg mb-3">
-                        <Image 
-                            source={{ uri: item.image }} 
-                            className="w-20 h-20 rounded-md" 
-                        />
-                        <View className="ml-3 flex-1">
-                            <Text className="font-semibold text-base">{item.title}</Text>
-                            <Text className="text-green-600 font-bold">{item.price}</Text>
-                            <View className="flex-row mt-1">
-                                <View className="bg-blue-100 rounded-full px-2 py-1 mr-1">
-                                    <Text className="text-xs text-blue-800">eBay</Text>
-                                </View>
-                                <View className="bg-pink-100 rounded-full px-2 py-1 mr-1">
-                                    <Text className="text-xs text-pink-800">Depop</Text>
+                <ScrollView className="flex-1 px-4">
+                    {mockListedItems.map((item) => (
+                        <GlassView key={item.id} style={{ marginBottom: 12 }}>
+                            <View className="flex-row items-center">
+                                <Image 
+                                    source={{ uri: item.image }} 
+                                    className="w-20 h-20 rounded-md" 
+                                />
+                                <View className="ml-3 flex-1">
+                                    <Text className="font-semibold text-base text-white">{item.title}</Text>
+                                    <Text className="text-green-300 font-bold">{item.price}</Text>
+                                    <View className="flex-row mt-1">
+                                        <GlassView style={{ marginRight: 6 }}>
+                                            <Text className="text-xs text-white">eBay</Text>
+                                        </GlassView>
+                                        <GlassView>
+                                            <Text className="text-xs text-white">Depop</Text>
+                                        </GlassView>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </View>
-                ))}
-            </ScrollView>
-        </SafeAreaView>
+                        </GlassView>
+                    ))}
+                </ScrollView>
+            </SafeAreaView>
+        </GradientBackground>
     )
 }
 
