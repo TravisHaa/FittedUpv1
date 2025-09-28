@@ -18,6 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { useGenerateListing } from "../../hooks/generateListing";
 import { useRouter } from "expo-router";
+const USE_MODERN_WEBVIEW = true;
 
 // Type for listing details returned by the API
 
@@ -173,22 +174,17 @@ const Sell = () => {
       console.log("generating...");
       const generated = await generateListing(frontImage, backImage);
       setListingDetails(generated);
-      //parse reutnred JSON from GPT
-
-      // Update state with AI response
-      if (listingDetails !== null) {
-        setTitle(listingDetails.title);
-        setDescription(listingDetails.description);
-        setCategory(listingDetails.category);
-        setBrand(listingDetails.brand);
-        setCondition(listingDetails.condition);
-        setAesthetic(listingDetails.aesthetic);
-        setPrice(listingDetails.price);
+      if (generated) {
+        setTitle(generated.title);
+        setDescription(generated.description);
+        setCategory(generated.category);
+        setBrand(generated.brand);
+        setCondition(generated.condition);
+        setAesthetic(generated.aesthetic);
+        setPrice(generated.price);
       } else {
         console.error("Listing generated is null");
       }
-
-      // Update completion state
       setIsGenerationComplete(true);
     } catch (error) {
       console.error("Error generating listing:", error);
@@ -353,7 +349,7 @@ const Sell = () => {
                 <Text className="text-gray-600 mb-1">Price</Text>
                 <TextInput
                   value={price.toString()}
-                  onChangeText={(text) => setPrice(Number(text) || 0)}
+                  onChangeText={(text: string) => setPrice(Number(text) || 0)}
                   keyboardType="numeric"
                   className="border border-gray-300 rounded-lg p-3 text-base"
                   placeholder="Price"
@@ -386,11 +382,11 @@ const Sell = () => {
 
                     // Navigate to eBay WebView with listing data
                     router.push({
-                      pathname: "/platformWebView",
+                      pathname: USE_MODERN_WEBVIEW ? "/platformWebViewModern" : "/platformWebView",
                       params: {
                         listingData: JSON.stringify(listingData),
                         platform: "ebay",
-                        url: "https://www.ebay.com/sh/lst/active",
+                        url: "https://www.ebay.com/sl/sell",
                       },
                     });
                   } catch (error) {
@@ -428,8 +424,8 @@ const Sell = () => {
 
                     // Navigate to WebView with listing data
                     router.push({
-                      pathname: "/platformWebView",
-                      params: { listingData: JSON.stringify(listingData) },
+                      pathname: USE_MODERN_WEBVIEW ? "/platformWebViewModern" : "/platformWebView",
+                      params: { listingData: JSON.stringify(listingData), platform: "depop" },
                     });
                   } catch (error) {
                     console.error("Error preparing listing data:", error);
@@ -466,7 +462,7 @@ const Sell = () => {
 
                     // Navigate to Facebook Marketplace WebView with listing data
                     router.push({
-                      pathname: "/platformWebView",
+                      pathname: USE_MODERN_WEBVIEW ? "/platformWebViewModern" : "/platformWebView",
                       params: {
                         listingData: JSON.stringify(listingData),
                         platform: "facebook",

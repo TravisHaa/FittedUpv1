@@ -1,20 +1,35 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
     "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "paths": {
-      "@/*": [ "app/*"],
-      "@constants/*": ["constants/*"]
+      "@/*": [
+        "app/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ]
     }
   },
-  
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }

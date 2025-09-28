@@ -13,6 +13,10 @@ export default function RootLayout() {
     options={{headerShown: true, title: 'Depop'}}
     />
     <Stack.Screen
+    name="platformWebViewModern"
+    options={{headerShown: true, title: 'Sell'}}
+    />
+    <Stack.Screen
     name="/item/[id]"
     options={{headerShown: false}}
     />
