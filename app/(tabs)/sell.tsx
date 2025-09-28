@@ -66,12 +66,10 @@ const prepareImagesForWebView = async (
 
 const Sell = () => {
   // State for storing images
-  const [frontImage, setFrontImage] = useState<string | null>(null);
-  const [backImage, setBackImage] = useState<string | null>(null);
+  const [frontImage, setFrontImage] = useState(null as string | null);
+  const [backImage, setBackImage] = useState(null as string | null);
 
-  const [listingDetails, setListingDetails] = useState<ListingDetails | null>(
-    null
-  );
+  const [listingDetails, setListingDetails] = useState(null as ListingDetails | null);
   // State for listing details (will be populated by AI)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -89,7 +87,7 @@ const Sell = () => {
 
   // Function to request permissions and pick an image
   const pickImage = async (
-    setImageFunction: React.Dispatch<React.SetStateAction<string | null>>
+    setImageFunction: any
   ) => {
     // Show action sheet to choose between camera and library
     Alert.alert(
@@ -397,12 +395,10 @@ const Sell = () => {
                       images,
                     };
 
-                    // Navigate to eBay WebView with listing data
+                    // Open in-app browser for eBay
                     router.push({
-                      pathname: "/platformWebView",
+                      pathname: "/platformBrowser",
                       params: {
-                        listingData: JSON.stringify(listingData),
-                        platform: "ebay",
                         url: "https://www.ebay.com/sh/lst/active",
                       },
                     });
@@ -441,10 +437,10 @@ const Sell = () => {
                       images,
                     };
 
-                    // Navigate to WebView with listing data
+                    // Open in-app browser for Depop
                     router.push({
-                      pathname: "/platformWebView",
-                      params: { listingData: JSON.stringify(listingData) },
+                      pathname: "/platformBrowser",
+                      params: { url: "https://www.depop.com/sell" },
                     });
                   } catch (error) {
                     console.error("Error preparing listing data:", error);
@@ -481,12 +477,10 @@ const Sell = () => {
                       images,
                     };
 
-                    // Navigate to Facebook Marketplace WebView with listing data
+                    // Open in-app browser for Facebook Marketplace
                     router.push({
-                      pathname: "/platformWebView",
+                      pathname: "/platformBrowser",
                       params: {
-                        listingData: JSON.stringify(listingData),
-                        platform: "facebook",
                         url: "https://www.facebook.com/marketplace/create/item",
                       },
                     });

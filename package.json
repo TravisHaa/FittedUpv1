@@ -52,6 +52,7 @@
     "react-native-screens": "~4.4.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
+    "react-native-inappbrowser-reborn": "^3.9.0",
     "tailwind-rn": "^4.2.0",
     "tailwindcss": "^3.4.17"
   },
