@@ -79,7 +79,7 @@ const Sell = () => {
   const [brand, setBrand] = useState("");
   const [condition, setCondition] = useState("");
   const [aesthetic, setAesthetic] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState<number>(0);
   const router = useRouter();
 
   // Use the generate listing hook
@@ -348,7 +348,7 @@ const Sell = () => {
               <View className="w-[30%]">
                 <Text className="text-gray-600 mb-1">Price</Text>
                 <TextInput
-                  value={price.toString()}
+                  value={price?.toString() || "0"}
                   onChangeText={(text: string) => setPrice(Number(text) || 0)}
                   keyboardType="numeric"
                   className="border border-gray-300 rounded-lg p-3 text-base"
@@ -382,7 +382,9 @@ const Sell = () => {
 
                     // Navigate to eBay WebView with listing data
                     router.push({
-                      pathname: USE_MODERN_WEBVIEW ? "/platformWebViewModern" : "/platformWebView",
+                      pathname: USE_MODERN_WEBVIEW
+                        ? "/platformWebViewModern"
+                        : "/platformWebView",
                       params: {
                         listingData: JSON.stringify(listingData),
                         platform: "ebay",
@@ -424,8 +426,13 @@ const Sell = () => {
 
                     // Navigate to WebView with listing data
                     router.push({
-                      pathname: USE_MODERN_WEBVIEW ? "/platformWebViewModern" : "/platformWebView",
-                      params: { listingData: JSON.stringify(listingData), platform: "depop" },
+                      pathname: USE_MODERN_WEBVIEW
+                        ? "/platformWebViewModern"
+                        : "/platformWebView",
+                      params: {
+                        listingData: JSON.stringify(listingData),
+                        platform: "depop",
+                      },
                     });
                   } catch (error) {
                     console.error("Error preparing listing data:", error);
@@ -462,7 +469,9 @@ const Sell = () => {
 
                     // Navigate to Facebook Marketplace WebView with listing data
                     router.push({
-                      pathname: USE_MODERN_WEBVIEW ? "/platformWebViewModern" : "/platformWebView",
+                      pathname: USE_MODERN_WEBVIEW
+                        ? "/platformWebViewModern"
+                        : "/platformWebView",
                       params: {
                         listingData: JSON.stringify(listingData),
                         platform: "facebook",
