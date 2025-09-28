@@ -43,7 +43,7 @@ export const useGenerateListing = () => {
       const backBase64 = await imageToBase64(backImageUri);
 
       // Get the local IP address
-      const API_URL = "http://localhost:3001/api/route";
+      const API_URL = "http://localhost:3000/api/route";
 
       ///creating formData
       const formData = new FormData();
