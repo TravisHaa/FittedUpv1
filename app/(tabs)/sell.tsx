@@ -34,6 +34,34 @@ const imageToBase64 = async (uri: string): Promise<string> => {
   }
 };
 
+// Function to prepare images for WebView
+const prepareImagesForWebView = async (
+  frontImage: string | null,
+  backImage: string | null
+) => {
+  const images = [];
+
+  if (frontImage) {
+    try {
+      const base64Data = await imageToBase64(frontImage);
+      images.push({ data: base64Data, mimeType: "image/jpeg" });
+    } catch (error) {
+      console.error("Error converting front image:", error);
+    }
+  }
+
+  if (backImage) {
+    try {
+      const base64Data = await imageToBase64(backImage);
+      images.push({ data: base64Data, mimeType: "image/jpeg" });
+    } catch (error) {
+      console.error("Error converting back image:", error);
+    }
+  }
+
+  return images;
+};
+
 const Sell = () => {
   // State for storing images
   const [frontImage, setFrontImage] = useState<string | null>(null);
@@ -337,21 +365,122 @@ const Sell = () => {
 
             <View className="flex-col justify-between mb-4">
               <TouchableOpacity
-                onPress={openDepopApp}
+                onPress={async () => {
+                  try {
+                    // Prepare listing data to pass to WebView
+                    const images = await prepareImagesForWebView(
+                      frontImage,
+                      backImage
+                    );
+                    const listingData = {
+                      title,
+                      description,
+                      category,
+                      brand,
+                      condition,
+                      aesthetic,
+                      price,
+                      material,
+                      images,
+                    };
+
+                    // Navigate to eBay WebView with listing data
+                    router.push({
+                      pathname: "/platformWebView",
+                      params: {
+                        listingData: JSON.stringify(listingData),
+                        platform: "ebay",
+                        url: "https://www.ebay.com/sh/lst/active",
+                      },
+                    });
+                  } catch (error) {
+                    console.error("Error preparing listing data:", error);
+                    Alert.alert(
+                      "Error",
+                      "Failed to prepare listing data. Please try again."
+                    );
+                  }
+                }}
                 className="w-full bg-blue-500 py-3 rounded-lg items-center"
               >
                 <Text className="text-white font-semibold">eBay</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => router.push("/platformWebView")}
+                onPress={async () => {
+                  try {
+                    // Prepare listing data to pass to WebView
+                    const images = await prepareImagesForWebView(
+                      frontImage,
+                      backImage
+                    );
+                    const listingData = {
+                      title,
+                      description,
+                      category,
+                      brand,
+                      condition,
+                      aesthetic,
+                      price,
+                      material,
+                      images,
+                    };
+
+                    // Navigate to WebView with listing data
+                    router.push({
+                      pathname: "/platformWebView",
+                      params: { listingData: JSON.stringify(listingData) },
+                    });
+                  } catch (error) {
+                    console.error("Error preparing listing data:", error);
+                    Alert.alert(
+                      "Error",
+                      "Failed to prepare listing data. Please try again."
+                    );
+                  }
+                }}
                 className="w-full bg-pink-500 py-3 rounded-lg items-center "
               >
                 <Text className="text-white font-semibold">Depop</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={openDepopApp}
+                onPress={async () => {
+                  try {
+                    // Prepare listing data to pass to WebView
+                    const images = await prepareImagesForWebView(
+                      frontImage,
+                      backImage
+                    );
+                    const listingData = {
+                      title,
+                      description,
+                      category,
+                      brand,
+                      condition,
+                      aesthetic,
+                      price,
+                      material,
+                      images,
+                    };
+
+                    // Navigate to Facebook Marketplace WebView with listing data
+                    router.push({
+                      pathname: "/platformWebView",
+                      params: {
+                        listingData: JSON.stringify(listingData),
+                        platform: "facebook",
+                        url: "https://www.facebook.com/marketplace/create/item",
+                      },
+                    });
+                  } catch (error) {
+                    console.error("Error preparing listing data:", error);
+                    Alert.alert(
+                      "Error",
+                      "Failed to prepare listing data. Please try again."
+                    );
+                  }
+                }}
                 className="w-full bg-blue-600 py-3 rounded-lg items-center "
               >
                 <Text className="text-white font-semibold">Facebook</Text>
